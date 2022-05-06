@@ -1,9 +1,0 @@
-io.rezyfr.theme
-font raleway_bold
-font raleway_medium
-font raleway_regular
-font raleway_semi_bold
-string pref_theme_dark_value
-string pref_theme_default_value
-string pref_theme_light_value
-string pref_theme_system_value
