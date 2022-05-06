@@ -7,8 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import dagger.hilt.android.AndroidEntryPoint
 import io.rezyfr.muviplayground.ui.theme.MuviPlaygroundTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private var backPressed = 0L
