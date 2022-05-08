@@ -173,6 +173,8 @@ fun DependencyHandler.addModuleDependencies() {
     implementation(project(mapOf("path" to ":common:provider")))
     implementation(project(mapOf("path" to ":common:theme")))
     implementation(project(mapOf("path" to ":feature:home")))
+    implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":domain")))
 }
 
 // Modules
@@ -201,8 +203,8 @@ val DependencyHandler.FEATURE_HOME
 //    get() = implementation(project(mapOf("path" to ":features:splash")))
 //
 //
-//val DependencyHandler.MODEL
-//    get() = implementation(project(mapOf("path" to ":data:model")))
+val DependencyHandler.DATA
+    get() = implementation(project(mapOf("path" to ":data")))
 //
 //val DependencyHandler.LOCAL
 //    get() = implementation(project(mapOf("path" to ":data:local")))
@@ -213,8 +215,8 @@ val DependencyHandler.FEATURE_HOME
 //val DependencyHandler.REPOSITORY
 //    get() = implementation(project(mapOf("path" to ":data:repository")))
 //
-//val DependencyHandler.DOMAIN
-//    get() = implementation(project(mapOf("path" to ":domain")))
+val DependencyHandler.DOMAIN
+    get() = implementation(project(mapOf("path" to ":domain")))
 //
 val DependencyHandler.PROVIDER
     get() = implementation(project(mapOf("path" to ":common:provider")))
@@ -222,8 +224,8 @@ val DependencyHandler.PROVIDER
 val DependencyHandler.THEME
     get() = implementation(project(mapOf("path" to ":common:theme")))
 //
-//val DependencyHandler.COMPONENT
-//    get() = implementation(project(mapOf("path" to ":common:component")))
+val DependencyHandler.COMPONENT
+    get() = implementation(project(mapOf("path" to ":common:component")))
 //
 //val DependencyHandler.FRAMEWORK
 //    get() = implementation(project(mapOf("path" to ":libraries:framework")))

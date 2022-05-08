@@ -14,7 +14,8 @@ ksp {
 dependencies {
     PROVIDER
     THEME
-//    COMPONENT
+    DOMAIN
+    COMPONENT
 
 //    FEATURE_CHARACTERS
 //    FEATURE_EPISODES
@@ -22,4 +23,9 @@ dependencies {
 //    FEATURE_SETTINGS
 
     addNavigationDependencies()
+
+    // Dagger Hilt
+    implementation(DaggerHiltLib.Android)
+    kapt(DaggerHiltLib.Compiler)
+    implementation(DaggerHiltLib.Compose)
 }

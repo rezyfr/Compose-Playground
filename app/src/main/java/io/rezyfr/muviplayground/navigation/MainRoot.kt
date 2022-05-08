@@ -36,7 +36,7 @@ fun MainRoot(viewModel: MainViewModel = hiltViewModel(), finish: () -> Unit) {
     }
 
     MuviTheme(darkTheme = isDarkMode) {
-        SetupSystemUi(rememberSystemUiController(), MuviColors.primary)
+        SetupSystemUi(rememberSystemUiController(), MuviColors.background)
 
         Surface(
             modifier = Modifier.fillMaxSize(),
