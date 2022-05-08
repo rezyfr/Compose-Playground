@@ -15,8 +15,8 @@ interface MuviService {
     @GET("movie/popular")
     suspend fun getPopularMovies(): MovieListResponse
 
-    @GET("movie/now_playing")
-    fun getLatestMovies(): List<MovieResponse>
+    @GET("movie/upcoming")
+    suspend fun getComingSoonMovies(): MovieListResponse
 
 //
 //    @GET("movie/{type}")

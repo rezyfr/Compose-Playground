@@ -11,18 +11,13 @@ class HomeContract {
     }
 
     data class State(
-        val popularState: PopularState,
-        val nowPlayingState: NowPlayingState,
-        val isError: Boolean = false
+        val popularState: MovieListState,
+        val comingSoonState: MovieListState,
     ) : ViewState {
-        data class PopularState(
-            val popularList: List<MovieDomainModel>,
-            val isLoading: Boolean = false,
-        )
-
-        data class NowPlayingState(
-            val nowPlayingList: List<MovieDomainModel>,
-            val isLoading: Boolean = false
+        data class MovieListState (
+            val list: List<MovieDomainModel>,
+            val isLoading: Boolean = true,
+            val isError: Boolean = false
         )
     }
 

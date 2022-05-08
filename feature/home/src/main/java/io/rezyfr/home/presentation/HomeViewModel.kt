@@ -2,13 +2,15 @@ package io.rezyfr.home.presentation
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.rezyfr.component.base.BaseViewModel
-import io.rezyfr.domain.usecase.GetDiscoverMovie
+import io.rezyfr.domain.usecase.GetComingSoonMovies
+import io.rezyfr.domain.usecase.GetPopularMovies
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getDiscoverMovie: GetDiscoverMovie
-): BaseViewModel<HomeContract.Event, HomeContract.State, HomeContract.Effect>() {
+    private val getDiscoverMovie: GetPopularMovies,
+    private val getComingSoonMovies: GetComingSoonMovies
+) : BaseViewModel<HomeContract.Event, HomeContract.State, HomeContract.Effect>() {
 
     init {
         discoverMovies()
@@ -19,20 +21,33 @@ class HomeViewModel @Inject constructor(
             execute(getDiscoverMovie(Unit)) {
                 setState {
                     copy(
-                        popularState = popularState.copy(popularList = it, isLoading = false)
+                        popularState = popularState.copy(list = it, isLoading = false)
                     )
+                }
+            }
+            execute(getComingSoonMovies(Unit)) {
+                setState {
+                    copy(comingSoonState = comingSoonState.copy(list = it, isLoading = false))
                 }
             }
         }
     }
 
-    override fun setInitialState(): HomeContract.State  =
+    override fun setInitialState(): HomeContract.State =
         HomeContract.State(
-            nowPlayingState = HomeContract.State.NowPlayingState(listOf()),
-            popularState = HomeContract.State.PopularState(listOf())
+            comingSoonState = HomeContract.State.MovieListState(listOf()),
+            popularState = HomeContract.State.MovieListState(listOf())
         )
 
     override fun handleEvents(event: HomeContract.Event) {
+    }
 
+    override fun handleError(exception: Throwable) {
+        setState {
+            copy(
+                comingSoonState = comingSoonState.copy(isError = true),
+                popularState = popularState.copy(isError = true)
+            )
+        }
     }
 }

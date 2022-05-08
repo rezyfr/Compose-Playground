@@ -1,19 +1,25 @@
 package io.rezyfr.home
 
 import MuviColors
+import MuviTypography
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
@@ -22,7 +28,6 @@ import io.rezyfr.home.presentation.screens.HomeScreen
 import io.rezyfr.provider.NavigationProvider
 import selectedBottomItemColor
 import unselectedBottomItemColor
-
 
 @Destination(start = true)
 @Composable
@@ -35,22 +40,47 @@ fun MainScreen(navigator: NavigationProvider) {
     Crossfade(currentBottomTab) { bottomTab ->
         Scaffold(
             scaffoldState = scaffoldState,
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(style = MuviTypography.h2, text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(MuviColors.onSurface)) {
+                                append("Muvi")
+                            }
+                            withStyle(style = SpanStyle(MuviColors.primary)) {
+                                append("DB")
+                            }
+                        })
+                    },
+                    actions = {
+                        IconButton(onClick = { }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Search,
+                                contentDescription = null,
+                                tint = MaterialTheme.colors.primary
+                            )
+                        }
+                    },
+                    backgroundColor = MaterialTheme.colors.background
+                )
+            },
+            backgroundColor = MaterialTheme.colors.surface,
             bottomBar = { MainBottomNavigation(bottomTab, setCurrentBottomTab) },
-            content = {
-                when (bottomTab) {
-                    BottomBarHomeItem.HOME -> HomeScreen(
-                        navigator = navigator,
-                    )
-                    BottomBarHomeItem.FAVORITES -> HomeScreen(
-                        navigator = navigator
-                    )
+            content = { innerPadding ->
+                Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
+                    when (bottomTab) {
+                        BottomBarHomeItem.HOME -> HomeScreen(
+                            navigator = navigator,
+                        )
+                        BottomBarHomeItem.FAVORITES -> HomeScreen(
+                            navigator = navigator
+                        )
+                    }
                 }
             }
         )
     }
 }
-
-
 @Composable
 private fun MainBottomNavigation(
     bottomTab: BottomBarHomeItem,

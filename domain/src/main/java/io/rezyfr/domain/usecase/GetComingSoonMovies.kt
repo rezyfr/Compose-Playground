@@ -9,12 +9,12 @@ import io.rezyfr.domain.utils.DataStateUseCase
 import kotlinx.coroutines.flow.FlowCollector
 import javax.inject.Inject
 
-class GetDiscoverMovie @Inject constructor(
+class GetComingSoonMovies @Inject constructor(
     private val repository: MuviRepository
 ) : DataStateUseCase<Unit, List<MovieDomainModel>>() {
 
     override suspend fun FlowCollector<DataState<List<MovieDomainModel>>>.execute(params: Unit) {
-        val response = apiCall { repository.discoverMovie().map { it.toDomainModel() } }
+        val response = apiCall { repository.getComingSoonMovies().map { it.toDomainModel() } }
         emit(response)
     }
 }

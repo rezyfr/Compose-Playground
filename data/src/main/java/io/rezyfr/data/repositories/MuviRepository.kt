@@ -4,14 +4,19 @@ import io.rezyfr.data.remote.model.response.MovieResponse
 import io.rezyfr.data.remote.service.MuviService
 
 interface MuviRepository {
-    suspend fun discoverMovie(): List<MovieResponse>
+    suspend fun getPopularMovies(): List<MovieResponse>
+    suspend fun getComingSoonMovies(): List<MovieResponse>
 }
 
 class MuviRepositoryImpl(
     private val service: MuviService
 ) : MuviRepository {
-    override suspend fun discoverMovie(): List<MovieResponse> {
+    override suspend fun getPopularMovies(): List<MovieResponse> {
         val response = service.getPopularMovies()
+        return response.data
+    }
+    override suspend fun getComingSoonMovies(): List<MovieResponse> {
+        val response = service.getComingSoonMovies()
         return response.data
     }
 }
