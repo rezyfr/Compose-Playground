@@ -170,11 +170,13 @@ fun DependencyHandler.addTestDependencies() {
 }
 
 fun DependencyHandler.addModuleDependencies() {
+    implementation(project(mapOf("path" to ":core:data")))
+    implementation(project(mapOf("path" to ":core:domain")))
+    implementation(project(mapOf("path" to ":core:navigation")))
     implementation(project(mapOf("path" to ":common:provider")))
     implementation(project(mapOf("path" to ":common:theme")))
     implementation(project(mapOf("path" to ":feature:home")))
-    implementation(project(mapOf("path" to ":data")))
-    implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":feature:detail")))
 }
 
 // Modules
@@ -195,6 +197,8 @@ fun DependencyHandler.addModuleDependencies() {
 //
 val DependencyHandler.FEATURE_HOME
     get() = implementation(project(mapOf("path" to ":feature:home")))
+val DependencyHandler.FEATURE_DETAIL
+    get() = implementation(project(mapOf("path" to ":feature:detail")))
 //
 //val DependencyHandler.FEATURE_MAIN
 //    get() = implementation(project(mapOf("path" to ":features:main")))
@@ -204,7 +208,9 @@ val DependencyHandler.FEATURE_HOME
 //
 //
 val DependencyHandler.DATA
-    get() = implementation(project(mapOf("path" to ":data")))
+    get() = implementation(project(mapOf("path" to ":core:data")))
+val DependencyHandler.NAVIGATION
+    get() = implementation(project(mapOf("path" to ":core:navigation")))
 //
 //val DependencyHandler.LOCAL
 //    get() = implementation(project(mapOf("path" to ":data:local")))
@@ -216,7 +222,7 @@ val DependencyHandler.DATA
 //    get() = implementation(project(mapOf("path" to ":data:repository")))
 //
 val DependencyHandler.DOMAIN
-    get() = implementation(project(mapOf("path" to ":domain")))
+    get() = implementation(project(mapOf("path" to ":core:domain")))
 //
 val DependencyHandler.PROVIDER
     get() = implementation(project(mapOf("path" to ":common:provider")))

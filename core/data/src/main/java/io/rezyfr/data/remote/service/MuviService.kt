@@ -3,7 +3,6 @@ package io.rezyfr.data.remote.service
 import io.rezyfr.data.remote.model.response.MovieListResponse
 import io.rezyfr.data.remote.model.response.MovieResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MuviService {

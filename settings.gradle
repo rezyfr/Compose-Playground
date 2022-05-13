@@ -14,9 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Muvi Playground"
 include(":app")
+include(":core:navigation")
+include(":core:data")
+include(":core:domain")
 include(":common:component")
 include(":common:theme")
 include(":common:provider")
 include(":feature:home")
-include(":data")
-include(":domain")
+include(":feature:detail")
