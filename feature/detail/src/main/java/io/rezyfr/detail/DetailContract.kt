@@ -12,15 +12,8 @@ interface DetailContract {
     }
 
     data class State(
-        val popularState: MovieListState,
-        val comingSoonState: MovieListState,
-    ) : ViewState {
-        data class MovieListState (
-            val list: List<MovieDomainModel>,
-            val isLoading: Boolean = true,
-            val isError: Boolean = false
-        )
-    }
+        val movieDetail: MovieDomainModel? = null,
+    ) : ViewState
 
     sealed class Effect : ViewSideEffect {
         data class MovieClicked(val id: Int) : Effect()
