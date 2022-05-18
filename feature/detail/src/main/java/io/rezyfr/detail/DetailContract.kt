@@ -8,14 +8,16 @@ import io.rezyfr.domain.model.MovieDomainModel
 interface DetailContract {
 
     sealed class Event : ViewEvent {
-        data class MovieClicked(val id: Int) : Event()
+        data class FavoriteClicked(val id: Int) : Event()
     }
 
-    data class State(
-        val movieDetail: MovieDomainModel? = null,
-    ) : ViewState
+    sealed interface State : ViewState {
+        data class Success(val movieDetail: MovieDomainModel) : State
+        object Loading : State
+        object Error: State
+    }
 
     sealed class Effect : ViewSideEffect {
-        data class MovieClicked(val id: Int) : Effect()
+        data class FavoriteClicked(val id: Int) : Effect()
     }
 }

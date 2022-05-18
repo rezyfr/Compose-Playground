@@ -1,5 +1,6 @@
 package io.rezyfr.home.presentation
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.rezyfr.component.base.BaseViewModel
 import io.rezyfr.domain.usecase.GetComingSoonMovies
@@ -21,33 +22,38 @@ class HomeViewModel @Inject constructor(
             execute(getDiscoverMovie(Unit)) {
                 setState {
                     copy(
-                        popularState = popularState.copy(list = it, isLoading = false)
+                        popularList = if (it.isEmpty()) HomeContract.MovieState.Empty
+                        else HomeContract.MovieState.Success(it)
                     )
                 }
             }
             execute(getComingSoonMovies(Unit)) {
                 setState {
-                    copy(comingSoonState = comingSoonState.copy(list = it, isLoading = false))
+                    copy(
+                        nowPlayingList = if (it.isEmpty()) HomeContract.MovieState.Empty
+                        else HomeContract.MovieState.Success(it)
+                    )
                 }
             }
         }
     }
 
-    override fun setInitialState(): HomeContract.State =
-        HomeContract.State(
-            comingSoonState = HomeContract.State.MovieListState(listOf()),
-            popularState = HomeContract.State.MovieListState(listOf())
-        )
+    override fun setInitialState(): HomeContract.State = HomeContract.State(
+        popularList = HomeContract.MovieState.Loading,
+        nowPlayingList = HomeContract.MovieState.Loading
+    )
 
     override fun handleEvents(event: HomeContract.Event) {
+        when (event) {
+            is HomeContract.Event.MovieClicked -> {
+                setEffect { HomeContract.Effect.MovieClicked(event.id) }
+            }
+        }
     }
 
     override fun handleError(exception: Throwable) {
-        setState {
-            copy(
-                comingSoonState = comingSoonState.copy(isError = true),
-                popularState = popularState.copy(isError = true)
-            )
+        setEffect {
+            HomeContract.Effect.ShowToast(exception.message.orEmpty())
         }
     }
 }

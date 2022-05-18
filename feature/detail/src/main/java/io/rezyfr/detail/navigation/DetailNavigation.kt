@@ -5,6 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ramcosta.composedestinations.utils.composable
+import io.rezyfr.detail.presentation.screen.DetailRoute
 import io.rezyfr.navigation.MuviPlaygroundNavigationDestination
 
 object DetailNavigation : MuviPlaygroundNavigationDestination {
@@ -24,6 +25,6 @@ fun NavGraphBuilder.detailGraph(
             }
         )
     ){
-
+        DetailRoute(onBackClick = onBackClick)
     }
 }

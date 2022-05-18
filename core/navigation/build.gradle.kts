@@ -8,6 +8,7 @@ plugins {
 }
 
 dependencies {
+    addNavigationDependencies()
     implementation(SupportLib.Timber)
     // Dagger Hilt
     implementation(DaggerHiltLib.Android)

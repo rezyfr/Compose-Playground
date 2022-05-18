@@ -87,6 +87,7 @@ dependencies {
     addComposeDependencies()
     // Navigation
     addNavigationDependencies()
+    NAVIGATION
     // Core
     implementation(SupportLib.Splashscreen)
     implementation(SupportLib.Timber)

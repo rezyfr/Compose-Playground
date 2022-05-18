@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import io.rezyfr.muviplayground.presentation.MuviApp
 import io.rezyfr.muviplayground.ui.theme.MuviPlaygroundTheme
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainRoot(finish = finish)
+            MuviApp()
         }
     }
 }
