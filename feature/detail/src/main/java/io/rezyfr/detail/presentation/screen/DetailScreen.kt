@@ -49,15 +49,6 @@ fun DetailScreen(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            Spacer(
-                // TODO: Replace with windowInsetsTopHeight after
-                //       https://issuetracker.google.com/issues/230383055
-                Modifier.windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
-                )
-            )
-        }
         when (detailState) {
             DetailContract.State.Loading -> {
                 item {

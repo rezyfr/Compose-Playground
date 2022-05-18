@@ -31,6 +31,7 @@ import io.rezyfr.home.presentation.HOME_EFFECT_LAUNCHED
 import io.rezyfr.home.presentation.HomeContract
 import io.rezyfr.home.presentation.HomeViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
 
@@ -72,7 +73,7 @@ fun HomeScreen(
 @Composable
 fun EffectListener(effect: Flow<HomeContract.Effect>, navigateToDetail: (String) -> Unit) {
     val context = LocalContext.current
-    LaunchedEffect(key1 = HOME_EFFECT_LAUNCHED) {
+    LaunchedEffect(HOME_EFFECT_LAUNCHED) {
         effect.onEach {
             when (it) {
                 is HomeContract.Effect.MovieClicked -> navigateToDetail.invoke(it.id.toString())
@@ -82,7 +83,7 @@ fun EffectListener(effect: Flow<HomeContract.Effect>, navigateToDetail: (String)
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
+        }.collect()
     }
 }
 

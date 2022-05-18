@@ -29,6 +29,7 @@ import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import io.rezyfr.home.navigation.HomeNavigation
 import io.rezyfr.muviplayground.navigation.MuviNavHost
 import selectedBottomItemColor
 import unselectedBottomItemColor
@@ -41,6 +42,7 @@ fun MuviApp() {
         val navController = rememberNavController()
         val currentBackStackEntryAsState by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStackEntryAsState?.destination
+        val shouldShowAppBar = currentDestination?.route in BottomBarHomeItem.values().map { it.route }
 
         SetupSystemUi(rememberSystemUiController(), MuviColors.background)
 
@@ -55,32 +57,9 @@ fun MuviApp() {
             Crossfade(currentBottomTab) { bottomTab ->
                 Scaffold(
                     scaffoldState = scaffoldState,
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                Text(style = MuviTypography.h2, text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(MuviColors.onSurface)) {
-                                        append("Muvi")
-                                    }
-                                    withStyle(style = SpanStyle(MuviColors.primary)) {
-                                        append("DB")
-                                    }
-                                })
-                            },
-                            actions = {
-                                IconButton(onClick = { }) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Search,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colors.primary
-                                    )
-                                }
-                            },
-                            backgroundColor = MaterialTheme.colors.background
-                        )
-                    },
+                    topBar = { if(shouldShowAppBar) MainTopAppBar() },
                     backgroundColor = MaterialTheme.colors.surface,
-                    bottomBar = { MainBottomNavigation(bottomTab, setCurrentBottomTab) },
+                    bottomBar = { if(shouldShowAppBar) MainBottomNavigation(bottomTab, setCurrentBottomTab) },
                     content = { innerPadding ->
                         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
                             MuviNavHost(
@@ -95,6 +74,32 @@ fun MuviApp() {
             }
         }
     }
+}
+
+@Composable
+private fun MainTopAppBar(){
+    TopAppBar(
+        title = {
+            Text(style = MuviTypography.h2, text = buildAnnotatedString {
+                withStyle(style = SpanStyle(MuviColors.onSurface)) {
+                    append("Muvi")
+                }
+                withStyle(style = SpanStyle(MuviColors.primary)) {
+                    append("DB")
+                }
+            })
+        },
+        actions = {
+            IconButton(onClick = { }) {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.primary
+                )
+            }
+        },
+        backgroundColor = MaterialTheme.colors.background
+    )
 }
 
 @Composable
@@ -149,12 +154,15 @@ fun SetupSystemUi(
 }
 
 enum class BottomBarHomeItem(
-    val icon: ImageVector
+    val icon: ImageVector,
+    val route: String
 ) {
     HOME(
-        icon = Icons.Outlined.Home
+        icon = Icons.Outlined.Home,
+        route = HomeNavigation.route
     ),
     FAVORITES(
-        icon = Icons.Outlined.FavoriteBorder
+        icon = Icons.Outlined.FavoriteBorder,
+        route = HomeNavigation.route
     ),
 }
